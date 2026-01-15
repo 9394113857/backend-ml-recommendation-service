@@ -1,0 +1,45 @@
+# New Connection String:-
+psql 'postgresql://neondb_owner:npg_zXi2xZLW4nUY@ep-dawn-sea-a1nfiljx-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+
+
+# Set Neon DB URL in VsCode locally:-
+$env:DATABASE_URL="postgresql+psycopg2://neondb_owner:npg_zXi2xZLW4nUY@ep-dawn-sea-a1nfiljx-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+
+
+flask run --port 5005
+
+
+# FETCH RECOMMENDATIONS
+curl http://127.0.0.1:5005/api/recommendations/2
+
+
+Expected JSON:
+{
+  "user_id": 2,
+  "model_version": "v1_weighted_events",
+  "recommendations": [
+    {
+      "product_id": 1,
+      "score": 18000.0,
+      "rank": 1
+    }
+  ]
+}
+
+# TEST EMPTY USER (IMPORTANT)
+curl http://127.0.0.1:5005/api/recommendations/999
+
+
+{
+  "user_id": 999,
+  "recommendations": []
+}
+
+
+# Clear after testing (good habit):
+Remove-Item Env:DATABASE_URL
+
+
+
+
+
