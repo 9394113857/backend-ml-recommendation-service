@@ -1,0 +1,85 @@
+# ============================================================
+# FILE: git-merge-unrelated-histories-main.txt
+# PURPOSE:
+#   Merge a feature branch into main when Git throws:
+#   "fatal: refusing to merge unrelated histories"
+# ============================================================
+
+
+# ------------------------------------------------------------
+# STEP 0: Go to your project directory
+# ------------------------------------------------------------
+cd /d/ecommerce-platform/backend-ml-recommendation-service
+
+
+# ------------------------------------------------------------
+# STEP 1: Ensure you are on main branch
+# ------------------------------------------------------------
+git checkout main
+
+
+# ------------------------------------------------------------
+# STEP 2: Pull latest changes from remote main
+# (Confirm main is up to date before merging)
+# ------------------------------------------------------------
+git pull origin main
+
+
+# ------------------------------------------------------------
+# STEP 3: Attempt normal merge (this FAILS)
+# ERROR:
+# fatal: refusing to merge unrelated histories
+# Reason:
+# - main and feature branches were created independently
+# ------------------------------------------------------------
+git merge feature/ml-recommendation-service
+
+
+# ------------------------------------------------------------
+# STEP 4: FORCE merge by allowing unrelated histories
+# (SAFE when you intentionally want both histories)
+# ------------------------------------------------------------
+git merge feature/ml-recommendation-service --allow-unrelated-histories
+
+
+# ------------------------------------------------------------
+# STEP 5: If conflicts appear
+# - Open files
+# - Resolve <<<<<<< ======= >>>>>> markers
+# ------------------------------------------------------------
+# (Manual step)
+
+
+# ------------------------------------------------------------
+# STEP 6: Mark conflicts as resolved
+# ------------------------------------------------------------
+git add .
+
+
+# ------------------------------------------------------------
+# STEP 7: Complete the merge commit
+# (If Git auto-opens editor, just save & exit)
+# ------------------------------------------------------------
+git commit
+
+
+# ------------------------------------------------------------
+# STEP 8: Verify merge status
+# ------------------------------------------------------------
+git status
+git log --oneline --graph --all --decorate
+
+
+# ------------------------------------------------------------
+# STEP 9: Push merged main branch to remote
+# ------------------------------------------------------------
+git push origin main
+
+
+# ------------------------------------------------------------
+# FINAL RESULT:
+# ✔ feature branch merged into main
+# ✔ unrelated histories resolved
+# ✔ main branch pushed successfully
+# ✔ repository clean and deploy-ready
+# ============================================================
