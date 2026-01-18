@@ -1,0 +1,9 @@
+5️⃣ ML Recommendation Service — SQL Editor only (NOT flask shell)
+
+Service: backend-ml-recommendation-service
+Run in Neon Web SQL Editor
+TRUNCATE TABLE recommendations RESTART IDENTITY CASCADE;
+
+User:-
+Yes, its woking trucated now.
+
