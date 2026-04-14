@@ -24,7 +24,7 @@ def create_app():
     app.register_blueprint(recommendations_bp, url_prefix="/api")
 
     # ---------------------------------------------
-    # Root Health Check
+    # Root Health Check 
     # GET /
     # ---------------------------------------------
     @app.get("/")
