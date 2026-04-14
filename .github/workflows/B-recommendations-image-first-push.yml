@@ -1,4 +1,4 @@
-name: 🚀 Build & Push First ---> backend-ml-recommendation-service image
+name: 🚀 Build & Push First ---> backend-ml-recommendation-service image 
 
 on:
   workflow_dispatch:
