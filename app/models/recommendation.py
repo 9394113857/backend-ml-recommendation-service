@@ -10,10 +10,7 @@ class Recommendation(db.Model):
     user_id = db.Column(db.Integer, nullable=False, index=True)
     product_id = db.Column(db.Integer, nullable=False)
 
-    # ML score
-    score = db.Column(db.Float, nullable=False)
-
-    # Rank per user
+    score = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Float, nullable=False)
 
     created_at = db.Column(
