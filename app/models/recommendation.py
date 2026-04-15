@@ -1,3 +1,7 @@
+# =========================
+# Cell 1: Recommendation Model
+# =========================
+
 from app.extensions import db
 from datetime import datetime
 
@@ -5,13 +9,15 @@ from datetime import datetime
 class Recommendation(db.Model):
     __tablename__ = "recommendations"
 
-    id = db.Column(db.Integer, primary_key=True)
+    # Composite Primary Key (IMPORTANT)
+    user_id = db.Column(db.BigInteger, primary_key=True)
+    product_id = db.Column(db.BigInteger, primary_key=True)
 
-    user_id = db.Column(db.Integer, nullable=False, index=True)
-    product_id = db.Column(db.Integer, nullable=False)
+    # Match ML output
+    score = db.Column(db.Float, nullable=False)
 
-    score = db.Column(db.Integer, nullable=False)
-    rank = db.Column(db.Float, nullable=False)
+    # Ranking position
+    rank = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(
         db.DateTime,
