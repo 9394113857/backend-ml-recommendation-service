@@ -1,0 +1,59 @@
+# =====================================================
+# 🚀 SUPABASE DB URL (WITH PASSWORD) + RENDER ENV + NOTES + GIT PUSH
+# =====================================================
+
+# -----------------------------
+# 🔹 STEP 1: SET DB URL (LOCAL TEMP)
+# -----------------------------
+$env:DATABASE_URL="postgresql://postgres.ztpvzhfxuorkdqiufzgw:Raghunadh_1992@aws-1-ap-south-1.pooler.supabase.com:5432/postgres"
+
+Write-Host "✅ DATABASE_URL set locally (with password)"
+
+
+# -----------------------------
+# 🔹 STEP 2: REMOVE DB URL (CLEANUP)
+# -----------------------------
+if ($env:DATABASE_URL) {
+    Remove-Item Env:DATABASE_URL
+    Write-Host "🧹 DATABASE_URL removed"
+} else {
+    Write-Host "⚠️ DATABASE_URL already removed (skipped)"
+}
+
+
+# -----------------------------
+# 🔹 STEP 3: CREATE NOTES FILE 📄
+# -----------------------------
+@"
+=====================================================
+📘 SUPABASE DB CONFIG (WITH PASSWORD)
+=====================================================
+
+🔹 Local (VS Code PowerShell):
+$env:DATABASE_URL="postgresql://postgres.ztpvzhfxuorkdqiufzgw:Raghunadh_1992@aws-1-ap-south-1.pooler.supabase.com:5432/postgres"
+
+🔹 Render Environment Variable:
+KEY: DATABASE_URL
+VALUE: postgresql://postgres.ztpvzhfxuorkdqiufzgw:Raghunadh_1992@aws-1-ap-south-1.pooler.supabase.com:5432/postgres?sslmode=require
+
+🔹 Notes:
+✔ Using Supabase Session Pooler
+✔ Password included
+✔ Use sslmode=require in Render
+✔ Do not expose publicly
+
+=====================================================
+"@ | Out-File -FilePath SUPABASE_DB_SETUP.txt -Encoding utf8
+
+Write-Host "📄 SUPABASE_DB_SETUP.txt created"
+
+
+# -----------------------------
+# 🔹 STEP 4: GIT ADD + COMMIT + PUSH 🚀
+# -----------------------------
+git add .
+git commit -m "🔐 Supabase DB URL with password + Render env setup"
+git branch -M main
+git push origin main
+
+Write-Host "✅ Code pushed to GitHub (main)"
