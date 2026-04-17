@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="E:\ecommerce-platform\backend-ml-recommendation-service\venv"
+VIRTUAL_ENV="E:\Devops-projects\backend-ml-recommendation-service\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -1,0 +1,120 @@
+# =====================================================
+# Cell 1: FINAL FLASK MIGRATION FLOW (SUPABASE + CLEAN SETUP)
+# =====================================================
+
+# -----------------------------
+# STEP 0: CLEAN + CREATE VENV (SAFE RESET)
+# -----------------------------
+# Delete old venv if exists (force)
+if (Test-Path venv) {
+    cmd /c "rd /s /q venv"
+    Write-Host "✅ Old venv deleted"
+} else {
+    Write-Host "⚠️ venv not found (skipped delete)"
+}
+
+# Create new venv
+py -m venv venv
+Write-Host "✅ New venv created"
+
+# Activate venv
+.\venv\Scripts\activate
+
+# Upgrade pip
+python -m pip install --upgrade pip
+Write-Host "✅ pip upgraded"
+
+
+# -----------------------------
+# STEP 1: FORCE DELETE OLD MIGRATIONS + INSTANCE
+# -----------------------------
+if (Test-Path migrations) {
+    Remove-Item -Recurse -Force migrations
+    Write-Host "✅ migrations folder deleted"
+} else {
+    Write-Host "⚠️ migrations already removed (skipped)"
+}
+
+if (Test-Path instance) {
+    Remove-Item -Recurse -Force instance
+    Write-Host "✅ instance folder deleted"
+} else {
+    Write-Host "⚠️ instance already removed (skipped)"
+}
+
+
+# -----------------------------
+# STEP 2: INSTALL REQUIRED PACKAGES
+# -----------------------------
+pip install Flask Flask-SQLAlchemy Flask-Migrate psycopg2-binary python-dotenv
+
+# Save dependencies
+pip freeze > requirements.txt
+Write-Host "✅ requirements.txt updated"
+
+
+# -----------------------------
+# STEP 3: SET FLASK APP
+# -----------------------------
+$env:FLASK_APP="run.py"
+Write-Host "✅ FLASK_APP set"
+
+
+# -----------------------------
+# STEP 4: SET SUPABASE DB URL (TEMP)
+# -----------------------------
+$env:DATABASE_URL="postgresql://postgres.ztpvzhfxuorkdqiufzgw:Raghunadh_1992@aws-1-ap-south-1.pooler.supabase.com:5432/postgres"
+Write-Host "✅ DATABASE_URL set"
+
+
+# -----------------------------
+# STEP 5: INIT MIGRATIONS
+# -----------------------------
+flask db init
+Write-Host "✅ flask db init done"
+
+
+# -----------------------------
+# STEP 6: CREATE MIGRATION
+# -----------------------------
+flask db migrate -m "init recommendations table with created_at"
+Write-Host "✅ migration file created"
+
+
+# -----------------------------
+# STEP 7: APPLY MIGRATION
+# -----------------------------
+flask db upgrade
+Write-Host "🎉 DB MIGRATION COMPLETED"
+
+
+# -----------------------------
+# STEP 8: VERIFY USING FLASK SHELL
+# -----------------------------
+Write-Host "👉 Opening Flask shell (run verification manually)"
+
+flask shell
+
+# ---- INSIDE SHELL RUN THIS ----
+# from app.models import Recommendation
+# Recommendation.query.all()
+# exit()
+# --------------------------------
+
+
+# -----------------------------
+# STEP 9: REMOVE DB URL (CLEANUP)
+# -----------------------------
+if ($env:DATABASE_URL) {
+    Remove-Item Env:DATABASE_URL
+    Write-Host "✅ DATABASE_URL removed"
+} else {
+    Write-Host "⚠️ DATABASE_URL already removed (skipped)"
+}
+
+
+# -----------------------------
+# STEP 10: DEACTIVATE VENV (OPTIONAL)
+# -----------------------------
+deactivate
+Write-Host "✅ venv deactivated"
