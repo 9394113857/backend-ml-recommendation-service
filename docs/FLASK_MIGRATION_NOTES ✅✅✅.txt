@@ -118,3 +118,15 @@ if ($env:DATABASE_URL) {
 # -----------------------------
 deactivate
 Write-Host "✅ venv deactivated"
+
+===========================================================
+
+# =====================================================
+# GIT COMMANDS ONLY (ADD + COMMIT + PUSH 🚀)
+# =====================================================
+
+git add .
+git commit -m "🚀 Flask migration + Supabase setup completedd"
+git branch -M main
+git push origin main
+
