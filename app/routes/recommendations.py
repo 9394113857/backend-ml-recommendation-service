@@ -1,5 +1,5 @@
 # =========================
-# Cell 2: Recommendations Route
+# Cell 2: Recommendations Route (FINAL)
 # =========================
 
 from flask import Blueprint, jsonify
@@ -15,6 +15,7 @@ def get_recommendations(user_id):
         Recommendation.query
         .filter_by(user_id=user_id)
         .order_by(Recommendation.rank.asc())
+        .limit(10)
         .all()
     )
 

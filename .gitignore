@@ -1,5 +1,5 @@
 # ============================================================
-# PYTHON BYTECODE & CACHE (CRITICAL FOR DOCKER / RENDER)
+# PYTHON BYTECODE & CACHE (CRITICAL)
 # ============================================================
 __pycache__/
 *.pyc
@@ -12,6 +12,7 @@ __pycache__/
 # ============================================================
 venv/
 .venv/
+venv_old/
 .env
 .env.*
 *.env
@@ -23,7 +24,7 @@ venv/
 *.sqlite3
 
 # ============================================================
-# LOG FILES (LOCAL DEVELOPMENT)
+# LOG FILES
 # ============================================================
 logs/
 *.log
@@ -31,13 +32,13 @@ logs/
 
 # ============================================================
 # FLASK MIGRATIONS
-# (Keep migration source .py files, ignore compiled cache)
+# (Keep migration scripts, ignore cache)
 # ============================================================
 migrations/versions/__pycache__/
 migrations/versions/*.pyc
 
 # ============================================================
-# PYTEST / TESTING ARTIFACTS
+# TESTING / COVERAGE
 # ============================================================
 .pytest_cache/
 .coverage
@@ -45,10 +46,6 @@ migrations/versions/*.pyc
 htmlcov/
 pytestdebug.log
 junit.xml
-
-# ============================================================
-# COVERAGE REPORTS
-# ============================================================
 coverage.xml
 
 # ============================================================
@@ -72,7 +69,6 @@ Thumbs.db
 *.swp
 
 # ============================================================
-# FLASK INSTANCE FOLDER (CRITICAL)
-# Ignore instance folder at project ROOT
+# FLASK INSTANCE FOLDER (IMPORTANT)
 # ============================================================
 instance/
