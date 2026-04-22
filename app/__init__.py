@@ -12,7 +12,7 @@ from flask import Flask, jsonify, g, request
 
 from app.config import Config
 from app.extensions import db, migrate, cors
-from app.routes.recommendations import recommendations_bp
+from app.routes import recommendations_bp
 
 
 # =====================================================
@@ -53,9 +53,12 @@ def create_app():
     app.config.from_object(Config)
 
     # ---------------------------------------------
-    # CORS
+    # CORS (CRITICAL)
     # ---------------------------------------------
-    cors.init_app(app)
+    cors.init_app(
+        app,
+        resources={r"/api/*": {"origins": "*"}}
+    )
 
     # ---------------------------------------------
     # Extensions
@@ -98,12 +101,15 @@ def create_app():
     app.logger.setLevel(logging.INFO)
 
     # ---------------------------------------------
-    # ROUTES
+    # ✅ ROUTES (FIXED PREFIX)
     # ---------------------------------------------
-    app.register_blueprint(recommendations_bp, url_prefix="/api/v1/recommendations")
+    app.register_blueprint(
+        recommendations_bp,
+        url_prefix="/api/recommendations"
+    )
 
     # ---------------------------------------------
-    # HEALTH
+    # HEALTH CHECK
     # ---------------------------------------------
     @app.get("/")
     def health():
