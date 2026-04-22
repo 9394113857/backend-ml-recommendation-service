@@ -1,5 +1,5 @@
 # =========================
-# Cell 2: Recommendations Route (FINAL)
+# Cell 2: Recommendations Route (FINAL - UI READY)
 # =========================
 
 from flask import Blueprint, jsonify
@@ -22,18 +22,19 @@ def get_recommendations(user_id):
         .all()
     )
 
+    # ✅ Return empty array instead of 404 (VERY IMPORTANT for Angular)
     if not rows:
-        return jsonify({
-            "message": "No recommendations found",
-            "user_id": user_id
-        }), 404
+        return jsonify([]), 200
 
-    return jsonify([
-        {
-            "user_id": r.user_id,
-            "product_id": r.product_id,
-            "score": r.score,
-            "rank": r.rank
-        }
-        for r in rows
-    ])
+    return jsonify({
+        "user_id": user_id,
+        "count": len(rows),
+        "recommendations": [
+            {
+                "product_id": r.product_id,
+                "score": float(r.score),   # ✅ ensure JSON safe
+                "rank": int(r.rank)        # ✅ ensure JSON safe
+            }
+            for r in rows
+        ]
+    }), 200
