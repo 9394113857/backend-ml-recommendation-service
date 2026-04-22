@@ -72,6 +72,7 @@ if (Test-Path instance) {
     Write-Host "⚠️ instance already removed (skipped)"
 }
 
+
 # -----------------------------
 # STEP 2: INSTALL REQUIRED PACKAGES
 # -----------------------------
@@ -147,9 +148,11 @@ Write-Host "👉 Opening Flask shell (run verification manually)"
 flask shell
 
 # ---- INSIDE SHELL RUN THIS ----
-# from app.models import Recommendation
-# Recommendation.query.all()
-# exit()
+from app.models import Recommendation
+Recommendation.query.all()
+
+exit()
+
 # --------------------------------
 
 
@@ -177,7 +180,7 @@ Write-Host "✅ venv deactivated"
 # =====================================================
 
 git add .
-git commit -m "🚀 Flask migration + Supabase setup completedd"
+git commit -m "🚀 Flask migration + Supabase setup completed Updated Schame Change Again as on:- 22-4-26"
 git branch -M main
-git push origin main
+git push origin main 
 
