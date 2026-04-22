@@ -1,5 +1,5 @@
 # =========================
-# Cell 2: Recommendations Route (FINAL)
+# Cell 2: Recommendations Route (FINAL FIXED)
 # =========================
 
 from flask import Blueprint, jsonify
@@ -8,7 +8,8 @@ from app.models.recommendation import Recommendation
 recommendations_bp = Blueprint("recommendations", __name__)
 
 
-@recommendations_bp.get("/recommendations/<int:user_id>")
+# ✅ CLEAN REST ENDPOINT
+@recommendations_bp.get("/<int:user_id>")
 def get_recommendations(user_id):
 
     rows = (
