@@ -55,9 +55,9 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "❌ pip upgrade failed"
 }
 
-# -----------------------------
-# STEP 1: FORCE DELETE OLD MIGRATIONS + INSTANCE
-# -----------------------------
+# -------------------------------------
+# STEP 1,a: FORCE DELETE OLD MIGRATIONS 
+# -------------------------------------
 if (Test-Path migrations) {
     Remove-Item -Recurse -Force migrations
     Write-Host "✅ migrations folder deleted"
@@ -65,6 +65,9 @@ if (Test-Path migrations) {
     Write-Host "⚠️ migrations already removed (skipped)"
 }
 
+# -------------------------------
+# STEP 1,b: FORCE DELETE INSTANCE
+# -------------------------------
 if (Test-Path instance) {
     Remove-Item -Recurse -Force instance
     Write-Host "✅ instance folder deleted"
@@ -120,7 +123,7 @@ if ($LASTEXITCODE -eq 0) {
 # STEP 6: CREATE MIGRATION
 # =========================
 
-flask db migrate -m "init recommendations table with created_at"
+flask db migrate -m "Fresh Migrations"
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ migration file created"
