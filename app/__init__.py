@@ -12,8 +12,8 @@ from flask import Flask, jsonify, g, request
 
 from app.config import Config
 from app.extensions import db, migrate, cors
-from app.routes import recommendations_bp
-
+# from app.routes import recommendations_bp
+from app.routes.recommendations import recommendations_bp
 
 # =====================================================
 # 🔧 BUILD INFO

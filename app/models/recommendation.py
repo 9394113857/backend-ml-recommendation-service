@@ -1,5 +1,5 @@
 # =========================
-# Cell 1: Recommendation Model (FINAL - PRODUCTION SAFE ✅)
+# Recommendation Model (FINAL - PIPELINE COMPATIBLE ✅)   
 # =========================
 
 from app.extensions import db
@@ -10,7 +10,7 @@ class Recommendation(db.Model):
     __tablename__ = "recommendations"
 
     # =========================
-    # PRIMARY KEYS (Composite)
+    # PRIMARY KEYS
     # =========================
     user_id = db.Column(
         db.BigInteger,
@@ -33,7 +33,7 @@ class Recommendation(db.Model):
     )
 
     # =========================
-    # RANK (Top-N)
+    # RANK
     # =========================
     rank = db.Column(
         db.Integer,
@@ -41,25 +41,25 @@ class Recommendation(db.Model):
     )
 
     # =========================
-    # TIMESTAMP (DB + Python safe)
+    # TIMESTAMP (🔥 REQUIRED FOR PIPELINE)
     # =========================
     created_at = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.utcnow,          # Python side
-        server_default=db.func.now()      # DB side (🔥 important for Supabase)
+        default=datetime.utcnow,
+        server_default=db.func.now()
     )
 
     # =========================
-    # INDEXES (PERFORMANCE)
+    # INDEXES
     # =========================
     __table_args__ = (
         db.Index("idx_user_reco", "user_id"),
-        db.Index("idx_user_rank", "user_id", "rank"),  # 🔥 Top-N fast query
+        db.Index("idx_user_rank", "user_id", "rank"),
     )
 
     # =========================
-    # SERIALIZATION (API READY)
+    # SERIALIZATION
     # =========================
     def to_dict(self):
         return {
@@ -67,18 +67,12 @@ class Recommendation(db.Model):
             "product_id": int(self.product_id),
             "score": float(self.score),
             "rank": int(self.rank),
-            "created_at": (
-                self.created_at.isoformat() if self.created_at else None
-            )
+            "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
-    # =========================
-    # DEBUG / LOGGING
-    # =========================
     def __repr__(self):
         return (
             f"<Recommendation user={self.user_id} "
             f"product={self.product_id} "
-            f"rank={self.rank} "
-            f"score={self.score}>"
+            f"rank={self.rank} score={self.score}>"
         )
