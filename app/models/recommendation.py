@@ -1,5 +1,5 @@
 # =====================================================
-# FINAL RECOMMENDATION MODEL (NO AUTO ID ✅)
+# FINAL RECOMMENDATION MODEL (MIGRATION SAFE ✅)  
 # =====================================================
 
 from app.extensions import db
@@ -9,7 +9,7 @@ from datetime import datetime
 class Recommendation(db.Model):
     __tablename__ = "recommendations"
 
-    # ✅ COMPOSITE PRIMARY KEY
+    # 🔥 COMPOSITE PRIMARY KEY
     user_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
     product_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
 
@@ -25,6 +25,7 @@ class Recommendation(db.Model):
         server_default=db.func.now()
     )
 
+    # indexes
     __table_args__ = (
         db.Index("idx_user_reco", "user_id"),
         db.Index("idx_user_rank", "user_id", "rank"),
