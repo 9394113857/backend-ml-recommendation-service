@@ -1,6 +1,6 @@
-# =========================
-# Cell 2: Recommendations Route (FINAL - PRODUCTION READY 🚀)
-# =========================
+# =====================================================
+# Recommendations Route (FINAL - PRODUCTION READY 🚀)
+# =====================================================
 
 from flask import Blueprint, jsonify, current_app
 from app.models.recommendation import Recommendation

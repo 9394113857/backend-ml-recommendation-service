@@ -1,6 +1,6 @@
-# =========================
-# Recommendation Model (FINAL - PIPELINE COMPATIBLE ✅)   
-# =========================
+# =====================================================
+# Recommendation Model (FINAL - PRODUCTION SAFE ✅)
+# =====================================================
 
 from app.extensions import db
 from datetime import datetime
@@ -12,36 +12,21 @@ class Recommendation(db.Model):
     # =========================
     # PRIMARY KEYS
     # =========================
-    user_id = db.Column(
-        db.BigInteger,
-        primary_key=True,
-        nullable=False
-    )
-
-    product_id = db.Column(
-        db.BigInteger,
-        primary_key=True,
-        nullable=False
-    )
+    user_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
+    product_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
 
     # =========================
     # ML SCORE
     # =========================
-    score = db.Column(
-        db.Float,
-        nullable=False
-    )
+    score = db.Column(db.Float, nullable=False)
 
     # =========================
     # RANK
     # =========================
-    rank = db.Column(
-        db.Integer,
-        nullable=False
-    )
+    rank = db.Column(db.Integer, nullable=False)
 
     # =========================
-    # TIMESTAMP (🔥 REQUIRED FOR PIPELINE)
+    # TIMESTAMP (SAFE)
     # =========================
     created_at = db.Column(
         db.DateTime,
@@ -71,8 +56,4 @@ class Recommendation(db.Model):
         }
 
     def __repr__(self):
-        return (
-            f"<Recommendation user={self.user_id} "
-            f"product={self.product_id} "
-            f"rank={self.rank} score={self.score}>"
-        )
+        return f"<Reco user={self.user_id} product={self.product_id} rank={self.rank}>"

@@ -1,5 +1,5 @@
 # =====================================================
-# ML RECOMMENDATION SERVICE – APP FACTORY (FINAL)
+# ML RECOMMENDATION SERVICE – APP FACTORY (FINAL ✅)
 # =====================================================
 
 import os
@@ -12,8 +12,8 @@ from flask import Flask, jsonify, g, request
 
 from app.config import Config
 from app.extensions import db, migrate, cors
-# from app.routes import recommendations_bp
 from app.routes.recommendations import recommendations_bp
+
 
 # =====================================================
 # 🔧 BUILD INFO
@@ -53,12 +53,9 @@ def create_app():
     app.config.from_object(Config)
 
     # ---------------------------------------------
-    # CORS (CRITICAL)
+    # CORS
     # ---------------------------------------------
-    cors.init_app(
-        app,
-        resources={r"/api/*": {"origins": "*"}}
-    )
+    cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
 
     # ---------------------------------------------
     # Extensions
@@ -101,7 +98,7 @@ def create_app():
     app.logger.setLevel(logging.INFO)
 
     # ---------------------------------------------
-    # ✅ ROUTES (FIXED PREFIX)
+    # ROUTES
     # ---------------------------------------------
     app.register_blueprint(
         recommendations_bp,
@@ -113,11 +110,9 @@ def create_app():
     # ---------------------------------------------
     @app.get("/")
     def health():
-        info = get_build_info()
-
         return jsonify({
             "status": "ml-recommendation-service UP",
-            "build": info
+            "build": get_build_info()
         }), 200
 
     return app
