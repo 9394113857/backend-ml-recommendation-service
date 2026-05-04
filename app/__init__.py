@@ -12,6 +12,8 @@ from flask import Flask, jsonify, g, request
 
 from app.config import Config
 from app.extensions import db, migrate, cors
+
+# ✅ IMPORTANT FIX (correct import path)
 from app.routes.recommendations import recommendations_bp
 
 
@@ -102,7 +104,7 @@ def create_app():
     # ---------------------------------------------
     app.register_blueprint(
         recommendations_bp,
-        url_prefix="/api/recommendations"
+        url_prefix="/api"
     )
 
     # ---------------------------------------------

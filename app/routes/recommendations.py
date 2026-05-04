@@ -1,14 +1,14 @@
 # =====================================================
-# Recommendations Route (FINAL - PRODUCTION READY 🚀)
+# Recommendations Route (FINAL - DYNAMIC + SAFE 🚀)
 # =====================================================
 
 from flask import Blueprint, jsonify, current_app
-from app.models.recommendation import Recommendation
+from app.models import Recommendation
 
 recommendations_bp = Blueprint("recommendations", __name__)
 
 
-@recommendations_bp.get("/<int:user_id>")
+@recommendations_bp.get("/recommendations/<int:user_id>")
 def get_recommendations(user_id):
 
     current_app.logger.info(f"Fetching recommendations for user {user_id}")
@@ -22,7 +22,6 @@ def get_recommendations(user_id):
     )
 
     if not rows:
-        current_app.logger.info(f"No recommendations found for user {user_id}")
         return jsonify([]), 200
 
     return jsonify({

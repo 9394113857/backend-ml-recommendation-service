@@ -1,5 +1,5 @@
 # =====================================================
-# Recommendation Model (FINAL - PRODUCTION SAFE ✅)
+# FINAL RECOMMENDATION MODEL (NO AUTO ID ✅)
 # =====================================================
 
 from app.extensions import db
@@ -9,25 +9,15 @@ from datetime import datetime
 class Recommendation(db.Model):
     __tablename__ = "recommendations"
 
-    # =========================
-    # PRIMARY KEYS
-    # =========================
+    # ✅ COMPOSITE PRIMARY KEY
     user_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
     product_id = db.Column(db.BigInteger, primary_key=True, nullable=False)
 
-    # =========================
-    # ML SCORE
-    # =========================
+    # ML fields
     score = db.Column(db.Float, nullable=False)
-
-    # =========================
-    # RANK
-    # =========================
     rank = db.Column(db.Integer, nullable=False)
 
-    # =========================
-    # TIMESTAMP (SAFE)
-    # =========================
+    # timestamp
     created_at = db.Column(
         db.DateTime,
         nullable=False,
@@ -35,17 +25,11 @@ class Recommendation(db.Model):
         server_default=db.func.now()
     )
 
-    # =========================
-    # INDEXES
-    # =========================
     __table_args__ = (
         db.Index("idx_user_reco", "user_id"),
         db.Index("idx_user_rank", "user_id", "rank"),
     )
 
-    # =========================
-    # SERIALIZATION
-    # =========================
     def to_dict(self):
         return {
             "user_id": int(self.user_id),
@@ -54,6 +38,3 @@ class Recommendation(db.Model):
             "rank": int(self.rank),
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
-
-    def __repr__(self):
-        return f"<Reco user={self.user_id} product={self.product_id} rank={self.rank}>"
