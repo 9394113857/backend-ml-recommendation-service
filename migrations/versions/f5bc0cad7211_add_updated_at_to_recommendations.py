@@ -1,8 +1,8 @@
-"""Fresh Migrations
+"""Add updated_at to recommendations
 
-Revision ID: 042ec6220b3f
+Revision ID: f5bc0cad7211
 Revises: 
-Create Date: 2026-04-22 13:01:32.477420
+Create Date: 2026-05-05 12:23:39.471739
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '042ec6220b3f'
+revision = 'f5bc0cad7211'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,7 +23,8 @@ def upgrade():
     sa.Column('product_id', sa.BigInteger(), nullable=False),
     sa.Column('score', sa.Float(), nullable=False),
     sa.Column('rank', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('user_id', 'product_id')
     )
     with op.batch_alter_table('recommendations', schema=None) as batch_op:
