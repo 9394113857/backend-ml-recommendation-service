@@ -50,7 +50,7 @@ $env:DATABASE_URL="postgresql://postgres.ztpvzhfxuorkdqiufzgw:Raghunadh_1992@aws
 
 ✅ This sets DB URL only for this terminal session.
 
-🔹 Command 2: Run Alembic migration (tables creation):
+# 🔹 Command 2: Run Alembic migration (tables creation):
 flask db upgrade
 
 What happens:
